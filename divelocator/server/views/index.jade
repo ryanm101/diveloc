@@ -1,0 +1,17 @@
+extend ../includes/layout
+
+block main-content
+  .navbar.navbar-inverse.navbar-fixed-top
+    .container
+        .navebar-header
+          a.navbar-brand(href="/") DiveLocator
+            h6 - Wrecks
+        .navbar-collapse.collapse
+            ul.nav.navbar-nav
+              li
+                a(href="/") Home
+  section.content
+    div(ng-view)
+  
+  footer.container.text-center
+    p &copy Ryan McLean 2015
