@@ -1,26 +1,40 @@
 .container
-  .jumbotron
-    h1 DiveLocator
-    p Welcome to my home
-  .row
-    .col-sm-7
-      h5 Wrecks  
   .row
     .col-sm-2
       h4 Search:
       div.input
         input(type="text", name="Location")
-      h4 Filters:
-      h5 Region
-        ul
-          li 
-            a Americas
-          li 
-            a Europe
-          li 
-            a Asia-Pacific
+      h4 Quick View:
+        h5
+          ul
+            li
+              button(class="btn-link" ng-click="centerOnMe()") My Location
+            li
+              button(class="btn-link" ng-click="centerOnUK()") United Kingdom 
+            li 
+              button(class="btn-link" ng-click="centerOnIRE()") Ireland
+            li 
+              button(class="btn-link" ng-click="centerOnSCO()") Scotland
+            li 
+              button(class="btn-link" ng-click="centerOnENG()") England & Wales
+            li 
+              button(class="btn-link" ng-click='getWreck("HMS Wasp")') WreckTest
+            li 
+              a {{TMP}}
         
     .col-sm-7
       map(map-type-control="false")
-        marker(ng-repeat='pos in positions' position="{{pos.value[0]}},{{pos.value[1]}}" title="{{pos.id}}")
-          shape(name="circle" ngif="{{pos.value[2]}} == 'true'" stroke-color="#FF0000" stroke-opacity="0.8" stroke-weight="2" fill-color="#FF0000" fill-opacity="0.35" center="{{pos.value[0]}},{{pos.value[1]}}" radius="500")
+        marker(ng-repeat='pos in positions' position="{{pos.value[0]}},{{pos.value[1]}}" title="{{pos.id}}" on-click='getDetails()')
+          shape(name="circle" ng-if="pos.value[2] == 'true'" stroke-color="#FF0000" stroke-opacity="0.8" stroke-weight="2" fill-color="#FF0000" fill-opacity="0.35" center="{{pos.value[0]}},{{pos.value[1]}}" radius="500")
+          
+  .row(ng-if="activeWreck")
+    .col-sm-10
+      h3 Details:
+      h4 {{activeWreck.Type}} - {{activeWreck.Name}}
+      p {{activeWreck}}
+      .row
+        .col-sm-3
+          p Vessel Type
+        .col-sm-3
+          p {{activeWreck.VesselType}}
+    
