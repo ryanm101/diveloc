@@ -18,12 +18,13 @@ angular.module('app').controller('mainCtrl', function($scope, $http) {
    });
    
    $scope.activeWreck = null;
-   $scope.getWreck = function(wid) {
-	   $scope.TMP = wid;
+   
+   $scope.getWreck = function(event,wid) {
 	   $http.get("http://127.0.0.1:3000/wrecks/"+wid).success(function($res) {
 		   $scope.activeWreck = $res;
 	   });  
    };
+   
    $scope.centerOnUK = function() {
 	   var pos = new google.maps.LatLng("54.217623","-4.535172");
        $scope.map.setCenter(pos);
