@@ -23,9 +23,26 @@
         marker(ng-repeat='pos in positions' position="{{pos.value[0]}},{{pos.value[1]}}" title="{{pos.id}}" on-click='getWreck(pos.id)')
           shape(name="circle" ng-if="pos.value[2] == 'true'" stroke-color="#FF0000" stroke-opacity="0.8" stroke-weight="2" fill-color="#FF0000" fill-opacity="0.35" center="{{pos.value[0]}},{{pos.value[1]}}" radius="500")
 
+    .col-sm-3(ng-if="activeWreck")
+      h3 Quick Info
+      hr
+      .row
+        .col-sm-10 
+          p Depth - {{activeWreck.Depth}}
+      .row
+        .col-sm-10
+          p Height - {{activeWreck.Height}}
+      .row
+        .col-sm-10
+          p GPS HMS - {{activeWreck.Latitude}}, {{activeWreck.Longitude}}
+      .row
+        .col-sm-10
+          p GPS DEC - {{activeWreck.DecLatitude}}, {{activeWreck.DecLongitude}}
+      
+       
   .row(ng-if="activeWreck")
     .col-sm-10
-      h3 Details:
+      h3 Full Details:
       h4 {{activeWreck.Type}} - {{activeWreck.Name}}
       p {{activeWreck}}
       .row
@@ -33,4 +50,6 @@
           p Vessel Type
         .col-sm-3
           p {{activeWreck.VesselType}}
+        .col-sm-3 
+          p Location
     
