@@ -9,19 +9,23 @@
           ul
             li
               button(class="btn-link" ng-click="centerOnMe()") My Location
-            li
-              button(class="btn-link" ng-click="centerOnUK()") United Kingdom 
-            li 
-              button(class="btn-link" ng-click="centerOnIRE()") Ireland
-            li 
-              button(class="btn-link" ng-click="centerOnSCO()") Scotland
-            li 
-              button(class="btn-link" ng-click="centerOnENG()") England & Wales
+              li
+                button(class="btn-link" ng-click="centerOnUK()") United Kingdom
+                ul 
+                  li 
+                    button(class="btn-link" ng-click="centerOnIRE()") Ireland
+                  li 
+                    button(class="btn-link" ng-click="centerOnSCO()") Scotland
+                  li 
+                    button(class="btn-link" ng-click="centerOnENG()") England & Wales
+                  li 
+                    button(class="btn-link" ng-click="centerOnIOM()") Isle of Man
         
     .col-sm-7
       map(map-type-control="false")
         marker(ng-repeat='pos in positions' position="{{pos.value[0]}},{{pos.value[1]}}" title="{{pos.id}}" on-click='getWreck(pos.id)')
           shape(name="circle" ng-if="pos.value[2] == 'true'" stroke-color="#FF0000" stroke-opacity="0.8" stroke-weight="2" fill-color="#FF0000" fill-opacity="0.35" center="{{pos.value[0]}},{{pos.value[1]}}" radius="500")
+          shape(name="circle" ng-if="pos.value[2] == 'close'" stroke-color="#FF0000" stroke-opacity="0.8" stroke-weight="2" fill-color="#FF0000" fill-opacity="0.35" center="{{pos.value[0]}},{{pos.value[1]}}" radius="100")
 
     .col-sm-3(ng-if="activeWreck")
       h3 Quick Info

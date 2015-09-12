@@ -45,6 +45,11 @@ angular.module('app').controller('mainCtrl', function($scope, $http) {
        $scope.map.setCenter(pos);
        $scope.map.setZoom(5);
    };
+   $scope.centerOnIOM = function() {
+	   var pos = new google.maps.LatLng("54.218886","-4.529501");
+       $scope.map.setCenter(pos);
+       $scope.map.setZoom(9);
+   };
    $scope.centerOnMe= function(){
        navigator.geolocation.getCurrentPosition(function(position) {
           var pos = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
