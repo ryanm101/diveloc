@@ -58,18 +58,15 @@
           li Seabed: {{activeWreck.SeaBed}}
           li Launch From: {{activeWreck.Launchfrom}}
       h4 Diving Notes:
-        p {{activeWreck.DiveInfo}}
-        - var di = {{activeWreck.DiveInfo}}
-        p {{di}}
-
-      
+        p
+        ul
+          li(ng-repeat='note in activeWreck.DiveInfo') {{note}}
       h4 Maps:
         p
         ul
           li Admirality Map: {{activeWreck.AdmMap}}
           li Ordnance Survey: {{activeWreck.OSMap}}
-      
       h4 Historical Info:
-        p {{activeWreck.HistInfo}}
-      
-      p {{activeWreck}}
+        p
+        ul
+          li(ng-repeat='item in activeWreck.HistInfo') {{item}}
