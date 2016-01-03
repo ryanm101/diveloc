@@ -31,29 +31,45 @@
       h3 Quick Info
       hr
       .row
-        .col-sm-10 
-          p Depth - {{activeWreck.Depth}}
-      .row
         .col-sm-10
-          p Height - {{activeWreck.Height}}
-      .row
-        .col-sm-10
-          p GPS HMS - {{activeWreck.Latitude}}, {{activeWreck.Longitude}}
-      .row
-        .col-sm-10
-          p GPS DEC - {{activeWreck.DecLatitude}}, {{activeWreck.DecLongitude}}
+          p 
+          ul 
+            li Location: {{activeWreck.Location}}
+            li Place: {{activeWreck.Place}}
+            li Depth: {{activeWreck.Depth}}
+            li Height: {{activeWreck.Height}}
+            li Average Visiblity: {{activeWreck.AvgVis}}
+            li GPS HMS: {{activeWreck.Latitude}}, {{activeWreck.Longitude}}
+            li GPS DEC: {{activeWreck.DecLatitude}}, {{activeWreck.DecLongitude}}
       
        
   .row(ng-if="activeWreck")
     .col-sm-10
       h3 Full Details:
-      h4 {{activeWreck.Type}} - {{activeWreck.Name}}
+      h4 {{activeWreck.Type}} - {{activeWreck.Name}}, {{activeWreck.VesselType}} (Last Updated - {{activeWreck.LastUpdated}})
+        p
+        ul
+          li Lost {{activeWreck.DoL}}, {{activeWreck.CoL}}
+          li Hull Material: {{activeWreck.HMaterial}}
+      h4 Diving Info:
+        p
+        ul 
+          li Expreience: {{activeWreck.Experience}}
+          li Seabed: {{activeWreck.SeaBed}}
+          li Launch From: {{activeWreck.Launchfrom}}
+      h4 Diving Notes:
+        p {{activeWreck.DiveInfo}}
+        - var di = {{activeWreck.DiveInfo}}
+        p {{di}}
+
+      
+      h4 Maps:
+        p
+        ul
+          li Admirality Map: {{activeWreck.AdmMap}}
+          li Ordnance Survey: {{activeWreck.OSMap}}
+      
+      h4 Historical Info:
+        p {{activeWreck.HistInfo}}
+      
       p {{activeWreck}}
-      .row
-        .col-sm-3
-          p Vessel Type
-        .col-sm-3
-          p {{activeWreck.VesselType}}
-        .col-sm-3 
-          p Location
-    

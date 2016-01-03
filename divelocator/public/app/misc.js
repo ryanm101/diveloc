@@ -21,5 +21,20 @@ module.exports = {
 	},
 	DECtoHM: function (strDEC) {
 		
+	},
+	DistBetweenGPSPoints: function (latA,lonA,latB,lonB) {
+		var R = 6371000; // metres
+		var la1 = latA.toRadians();
+		var la2 = latB.toRadians();
+		var latdiff = (latB-latA).toRadians();
+		var londiff = (lonB-lonA).toRadians();
+
+		var a = Math.sin(latdiffΔφ/2) * Math.sin(latdiff/2) +
+		        Math.cos(la1) * Math.cos(la2) *
+		        Math.sin(londiff/2) * Math.sin(londiff/2);
+		var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
+
+		var d = R * c;
+		return d;
 	}
 };
