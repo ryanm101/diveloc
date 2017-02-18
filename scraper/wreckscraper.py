@@ -1,3 +1,6 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+
 from bs4 import BeautifulSoup
 import requests
 from lxml import html
@@ -54,10 +57,10 @@ def GetWreckDetails(url):
         
         def DisplayLL(self):
             if (self.Longitude) and (self.Latitude):
-                print(" Longitude: " + self.Longitude)
-                print(" DecLongitude: " + self.DecLongitude)
-                print(" Latitude: " + self.Latitude)
-                print(" DecLatitude: " + self.DecLatitude)     
+                print(" Longitude: " + self.Longitude).encode('utf-8')
+                print(" DecLongitude: " + self.DecLongitude).encode('utf-8')
+                print(" Latitude: " + self.Latitude).encode('utf-8')
+                print(" DecLatitude: " + self.DecLatitude).encode('utf-8')
             else:
                 print(" No Long/Lat Found")
                 
