@@ -20,7 +20,7 @@ def getLinks(url):
         if(link.get('href').startswith('/')):
             links.append(baseurl + link.get('href'))
     return links
-    
+
 def GetWreckDetails(url):
     class Wreck(object):
         Name = ""
@@ -36,25 +36,25 @@ def GetWreckDetails(url):
         DecLongitude = ""
         Place = ""
         SeaBed = ""
-        AvgVis = ""
-        Depth = ""
+        AvgVis = []
+        Depth = []
         HMaterial = ""
         Launchfrom = ""
         CoL = ""
         DoL = ""
-        Height = ""
+        Height = []
         LastUpdated = ""
         irishwrecksonlineurl = ""
         DiveInfo = []
         HistInfo = []
-        
+
         def __init__(self, Name):
             self.Name = Name
             self.Type = "Wreck"
-            
+
         def to_JSON(self):
             return json.dumps(self, default=lambda o: o.__dict__, sort_keys=True, indent=4)
-        
+
         def DisplayLL(self):
             if (self.Longitude) and (self.Latitude):
                 print(" Longitude: " + self.Longitude).encode('utf-8')
@@ -63,12 +63,12 @@ def GetWreckDetails(url):
                 print(" DecLatitude: " + self.DecLatitude).encode('utf-8')
             else:
                 print(" No Long/Lat Found")
-                
+
         def SetDecmialLatLng(self):
             #LATITUDE
             regex1 = re.compile("^(\d+)\.(\d+)\.(\d+)\s*(\w+)")
             regex2 = re.compile("^(\d+\.?\d*)\s(\d{2,}\.?\d*)?\s?(\d{2,}\s*\d*)?\s*(\w+)")
-            
+
             res = regex1.search(self.Latitude)
             if (res):
                 self.DecLatitude = self._ConvertHMtoDEC(res)
@@ -78,8 +78,8 @@ def GetWreckDetails(url):
                     self.DecLatitude = self._ConvertHMtoDEC(res)
                 else:
                     self.DecLatitude = ""
-            
-            # LONGITUDE   
+
+            # LONGITUDE
             res = regex1.search(self.Longitude)
             if (res):
                 self.DecLongitude = self._ConvertHMtoDEC(res)
@@ -88,8 +88,8 @@ def GetWreckDetails(url):
                 if (res):
                     self.DecLongitude = self._ConvertHMtoDEC(res)
                 else:
-                    self.DecLongitude = ""        
-                            
+                    self.DecLongitude = ""
+
         def _ConvertHMtoDEC(self, coord):
             #Decimal value = Degrees + (Minutes/60) + (Seconds/3600)
             #degrees minutes seconds: 40° 26′ 46″ N 79° 58′ 56″ W
@@ -104,14 +104,14 @@ def GetWreckDetails(url):
                 sec = float(sec) / 3600
             else:
                 sec = 0
-            
+
             decval = float(hrs) + min + sec
-            
+
             if (comp[0].lower() == 'w') or (comp[0].lower() == 's'):
                 return str(decval * -1)
-            else: 
+            else:
                 return str(decval)
-        
+
         def Display(self):
             print("Name: " + self.Name)
             print(" Type: " + self.Type)
@@ -126,29 +126,29 @@ def GetWreckDetails(url):
             print(" DecLongitude: " + self.DecLongitude)
             print(" Place: " + self.Place)
             print(" SeaBed: " + self.SeaBed)
-            print(" AvgVis: " + self.AvgVis)
-            print(" Depth: " + self.Depth)
+            print(" AvgVis: " + str(self.AvgVis).strip('[]'))
+            print(" Depth: " + str(self.Depth).strip('[]'))
             print(" HMaterial: " + self.HMaterial)
             print(" Launchfrom: " + self.Launchfrom)
             print(" CoL: " + self.CoL)
             print(" DoL: " + self.DoL)
-            print(" Height: " + self.Height)
+            print(" Height: " + str(self.Height).strip('[]'))
             print(" LastUpdated: " + self.LastUpdated)
             print(" DiveInfo: ")
             print(self.DiveInfo)
             print(" HistInfo: ")
             print(self.HistInfo)
-    
+
     r = requests.get(url)
     if (r.status_code == 404):
         return ""
-        
+
     tree = html.fromstring(r.text)
     WreckName = tree.xpath('/html/head/meta[@name="description"]/@content')[0].split(" - ")[1].strip()
-    
+
     td = tree.xpath('/html/body/table/tr/td/table[@background="SandBackDrop.gif"]/tr//text()')
     lu = tree.xpath('/html/body/table/tr/td/table[@width="100%"]/tr/td/div/p//text()')
-    
+
     rawlist = []
     for x in td:
         if ((x.strip() != "") and (x.strip() != "\r\n") and (x.strip() != "-")):
@@ -156,7 +156,7 @@ def GetWreckDetails(url):
                 break
             else:
                 rawlist.append(x.replace("\r\n","").strip())
-    
+
     flag = 0
     Details = []
     DiveInfo = []
@@ -174,47 +174,47 @@ def GetWreckDetails(url):
                 DiveInfo.append(item.replace(":",""))
         if(flag == 2):
             HistInfo.append(item.replace(":",""))
-    
+
     #Cleanup
     try:
         while (Details.index('no image listed.')):
             del(Details[-1])
     except:
         pass
-    
+
     try:
         idx = Details.index('picture available?')
         del(Details[idx])
     except:
         pass
-    
+
     try:
         idx = Details.index('photo available?')
         del(Details[idx])
     except:
         pass
-    
+
     try:
         idx = Details.index('yes -')
         del(Details[idx])
     except:
         pass
-    
+
     try:
         idx = Details.index('click here')
         del(Details[idx])
     except:
         pass
-    
+
     del(DiveInfo[0])
     del(HistInfo[0])
-    
+
     # Fix up data to account for missing items before we convert to Dictionary
-    hshWreckProperties = {'vessel type': "", 'diving experience': "", 'irish o.s. map': "", 
-        'admiralty chart no': "", 'location': "", 'latitude (gps)': "", 'longitude (gps)': "", 'place': "", 'type of seabed': "", 
-        'average visibility': "", 'charted depth': "", 'hull material': "", 'boat dive from': "", 'cause of loss': "", 
+    hshWreckProperties = {'vessel type': "", 'diving experience': "", 'irish o.s. map': "",
+        'admiralty chart no': "", 'location': "", 'latitude (gps)': "", 'longitude (gps)': "", 'place': "", 'type of seabed': "",
+        'average visibility': "", 'charted depth': "", 'hull material': "", 'boat dive from': "", 'cause of loss': "",
         'date of loss': "", 'height of wreck': "", 'longitude': "", 'latitude': ""}
-    
+
     for key in hshWreckProperties:
         try:
             idx = Details.index(key)
@@ -238,7 +238,7 @@ def GetWreckDetails(url):
             else:
                 nItem = nItem + " " +  Details.pop(0)
             i += 1
-            
+
         hshDetails[cItem] = nItem
     if(lu):
         hshDetails["LastUpdated"] = lu[1].replace("\r\n","").strip()
@@ -247,34 +247,72 @@ def GetWreckDetails(url):
     hshDetails["irishwrecksonlineurl"] = url
     del Details
     del rawlist
-    
+
+    AvgVis = []
+    Depth = []
+    Height = []
+
     cWreck = Wreck(WreckName)
     cWreck.VesselType = hshDetails['vessel type']
     cWreck.Experience = hshDetails['diving experience']
     cWreck.OSMap = hshDetails['irish o.s. map']
     cWreck.AdmMap = hshDetails['admiralty chart no']
     cWreck.Location = hshDetails['location']
-    
+
     if('latitude (gps)' in hshDetails):
         cWreck.Latitude = hshDetails['latitude (gps)']
         cWreck.Longitude = hshDetails['longitude (gps)']
     if('longitude' in hshDetails):
         cWreck.Latitude = hshDetails['latitude']
         cWreck.Longitude = hshDetails['longitude']
-    
+
     cWreck.Place = hshDetails['place']
     cWreck.SeaBed = hshDetails['type of seabed']
-    cWreck.AvgVis = hshDetails['average visibility']
-    cWreck.Depth = hshDetails['charted depth']
+    if hshDetails['average visibility']:
+        m = re.search('^(\d+)m',hshDetails['average visibility'])
+        if m:
+            AvgVis.append(int(m.group(1)))
+        else:
+            m = re.search('^(\d+)\s*-\s*(\d+)m',hshDetails['average visibility'])
+            if m:
+                AvgVis.append(int(m.group(1)))
+                AvgVis.append(int(m.group(2)))
+            else:
+                AvgVis.append(-1)
+        cWreck.AvgVis = AvgVis
+
+    if hshDetails['charted depth']:
+        m = re.search('^(\d+)m',hshDetails['charted depth'])
+        if m:
+            Depth.append(int(m.group(1)))
+        else:
+            m = re.search('^(\d+)\s*-\s*(\d+)m',hshDetails['charted depth'])
+            if m:
+                Depth.append(int(m.group(1)))
+                Depth.append(int(m.group(2)))
+            else:
+                Depth.append(-1)
+        cWreck.Depth = Depth
     cWreck.HMaterial = hshDetails['hull material']
     if('shore dive from' in hshDetails):
         cWreck.Launchfrom = hshDetails['shore dive from']
     if('boat dive from' in hshDetails):
         cWreck.Launchfrom = hshDetails['boat dive from']
-    
+
     cWreck.CoL = hshDetails['cause of loss']
     cWreck.DoL = hshDetails['date of loss']
-    cWreck.Height = hshDetails['height of wreck']
+    if hshDetails['height of wreck']:
+        m = re.search('^(\d+)m',hshDetails['height of wreck'])
+        if m:
+            Height.append(int(m.group(1)))
+        else:
+            m = re.search('^(\d+)\s*-\s*(\d+)m',hshDetails['height of wreck'])
+            if m:
+                Height.append(int(m.group(1)))
+                Height.append(int(m.group(2)))
+            else:
+                Height.append(hshDetails['height of wreck'])
+        cWreck.Height = Height
     cWreck.LastUpdated = hshDetails['LastUpdated']
     cWreck.irishwrecksonlineurl = hshDetails["irishwrecksonlineurl"]
     cWreck.DiveInfo = DiveInfo
@@ -305,7 +343,7 @@ for subpagelink in subpagelinks:
                 wrecklinks.append(link)
         else:
             print(link)
-            
+
 ######### Now Get Wrecks #########
 wreckslist = []
 deadlinks = []
@@ -314,7 +352,7 @@ extralinks = []
 # Links known to be problematic to parse
 skiplinks = ["http://irishwrecksonline.net/details/Unknown1001.htm",
     "http://irishwrecksonline.net/details/Unknown1002.htm",
-    "http://irishwrecksonline.net/details/Skijford690.htm"] 
+    "http://irishwrecksonline.net/details/Skijford690.htm"]
 
 #print(wrecklinks)
 
@@ -347,8 +385,8 @@ for wreck in wreckslist:
     r = requests.post(resturl, wreck.to_JSON(), headers=headers)
     if (r.status_code != 201):
         print("ERROR: " + str(r.status_code) + " - " + wreck.Name )
-        
-        
+
+
 #resturl = "http://127.0.0.1:3000/wrecks"
 #headers = {'Content-type': 'application/json', 'Accept': 'text/plain'}
 #r = requests.get(resturl, headers=headers)
