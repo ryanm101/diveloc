@@ -7,7 +7,7 @@ module.exports = {
                 console.log(err);
                 return res.send(err.statusCode, err.reason);
             }
-            res.send(body)
+            res.send(body);
         });
         return next();
     },
@@ -18,7 +18,7 @@ module.exports = {
                 console.log(err);
                 return res.send(err.statusCode, err.reason);
             }
-            res.send(body)
+            res.send(body);
         });
         return next();
     },
@@ -29,7 +29,7 @@ module.exports = {
                 console.log(err);
                 return res.send(err.statusCode, err.reason);
             }
-            res.send(body)
+            res.send(body);
         });
         return next();
     },
@@ -44,13 +44,13 @@ module.exports = {
     addwreck: function(req, res, next) {
         console.log("Add Wreck");
         req.db.insert(req.body, req.body.Name, function (error, body, headers) {
-            if(error) { 
+            if(error) {
                 console.log(error['status-code']  + ": " + error.message);
                 console.log(body);
                 if (error.message == "Document update conflict.") {
-                    return res.send(409, error.message); 
+                    return res.send(409, error.message);
                 }
-                return res.send(500 , error['status-code'] + ": " + error.message); 
+                return res.send(500 , error['status-code'] + ": " + error.message);
             }
             res.send(201, body);
         });
@@ -59,9 +59,9 @@ module.exports = {
     updatewreck: function(req, res, next) {
         console.log("Update Wreck");
         req.db.update(req.body, req.params.wreckId, function (error, response) {
-            if(error) { 
+            if(error) {
                 console.log("No Update");
-                return res.send(520 , "No Update"); 
+                return res.send(520 , "No Update");
             }
             res.send(201, response);
         });
@@ -83,5 +83,5 @@ module.exports = {
             });
         });
         return next();
-    } 
+    }
 };

@@ -20,28 +20,28 @@ module.exports = {
     },
     ConvertDMSToDD: function(degrees, minutes, seconds, direction) {
         var dd = degrees + minutes/60 + seconds/(60*60);
-    
+
         if (direction == "S" || direction == "W") {
             dd = dd * -1;
         } // Don't do anything for N or E
         return dd;
     },
     ConvertDDToDMS: function(lat,lng) {
-        
+
     },
     HMtoDec: function (strHM) {
 		var re1 = /^(\d+)\.(\d+)\.(\d+)\s*(\w+)/i;
 		var re2 = /^(\d+\.?\d*)\s(\d{2,}\.?\d*)?\s?(\d{2,}\s*\d*)?\s*(\w+)/i;
-		var arrRes = re1.exec(strHM)
+		var arrRes = re1.exec(strHM);
 		if (arrRes) {
 			console.log("re1: "+strHM);
 		} else {
 			console.log("re2?: "+strHM);
-			arrRes = re2.exec(strHM)
+			arrRes = re2.exec(strHM);
 			if (arrRes) {
 				console.log("re2*: "+strHM);
 			}
 		}
-		
+
 	},
 };

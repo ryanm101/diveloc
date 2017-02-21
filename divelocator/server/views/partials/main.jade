@@ -11,16 +11,17 @@
               button(class="btn-link" ng-click="centerOnMe()") My Location
               li
                 button(class="btn-link" ng-click="centerOnUK()") United Kingdom
-                ul 
-                  li 
+                ul
+                  li
                     button(class="btn-link" ng-click="centerOnIRE()") Ireland
-                  li 
+                  li
                     button(class="btn-link" ng-click="centerOnSCO()") Scotland
-                  li 
+                  li
                     button(class="btn-link" ng-click="centerOnENG()") England & Wales
-                  li 
+                  li
                     button(class="btn-link" ng-click="centerOnIOM()") Isle of Man
-        
+
+
     .col-sm-7
       map(map-type-control="false")
         marker(ng-repeat='pos in positions' position="{{pos.value[0]}},{{pos.value[1]}}" title="{{pos.id}}" on-click='getWreck(pos.id)')
@@ -32,8 +33,9 @@
       hr
       .row
         .col-sm-10
-          p 
-          ul 
+          p
+          ul
+            li Name: {{activeWreck.Name}}
             li Location: {{activeWreck.Location}}
             li Place: {{activeWreck.Place}}
             li Depth: {{activeWreck.Depth}}
@@ -41,8 +43,8 @@
             li Average Visiblity: {{activeWreck.AvgVis}}
             li GPS HMS: {{activeWreck.Latitude}}, {{activeWreck.Longitude}}
             li GPS DEC: {{activeWreck.DecLatitude}}, {{activeWreck.DecLongitude}}
-      
-       
+
+
   .row(ng-if="activeWreck")
     .col-sm-10
       h3 Full Details:
@@ -53,7 +55,7 @@
           li Hull Material: {{activeWreck.HMaterial}}
       h4 Diving Info:
         p
-        ul 
+        ul
           li Expreience: {{activeWreck.Experience}}
           li Seabed: {{activeWreck.SeaBed}}
           li Launch From: {{activeWreck.Launchfrom}}

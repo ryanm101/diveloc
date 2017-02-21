@@ -3,3 +3,5 @@ RemoteSystemsTempFiles
 divelocapi/node_modules
 divelocator/node_modules
 divelocator/public/vendor
+*test*
+scraper/wreckupdater.py
