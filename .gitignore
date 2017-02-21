@@ -5,3 +5,5 @@ divelocator/node_modules
 divelocator/public/vendor
 *test*
 scraper/wreckupdater.py
+.project
+.pydevproject
