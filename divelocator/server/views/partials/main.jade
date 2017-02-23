@@ -21,6 +21,8 @@
                   li
                     button(class="btn-link" ng-click="centerOnIOM()") Isle of Man
 
+          input(slider, type="text", ng-model="Slider1DefValue", id="myslider1", options="Slider1Options", callback="filterWrecksByDepth()")
+
 
     .col-sm-7
       map(map-type-control="false")

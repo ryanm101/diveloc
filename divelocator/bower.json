@@ -12,6 +12,7 @@
     "angular": "~1.4.3",
     "angular-resource": "~1.4.3",
     "angular-route": "~1.4.3",
-    "ngmap": "~1.11.5"
+    "ngmap": "~1.11.5",
+    "ng-slider":"~2.4.4"
   }
 }

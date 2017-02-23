@@ -1,4 +1,4 @@
-angular.module('app', ['ngResource', 'ngRoute', 'ngMap']);
+angular.module('app', ['ngResource', 'ngRoute', 'ngMap', 'angularAwesomeSlider']);
 
 angular.module('app').config(function($routeProvider, $locationProvider) {
     $locationProvider.html5Mode({
@@ -18,6 +18,20 @@ angular.module('app').controller('mainCtrl', function($scope, $http) {
    });
 
    $scope.activeWreck = null;
+
+   $scope.Slider1DefValue = "0;20";
+   $scope.Slider1Options = {
+     from:0,
+     to:100,
+     step:5,
+     dimension: ' m',
+     threshold: 5,
+     realtime: true
+   };
+
+   $scope.filterWrecksByDepth = function() {
+     console.log("Triggered");
+   };
 
    $scope.getWreck = function(event,wid) {
 	   $http.get("http://127.0.0.1:3000/wrecks/"+wid).success(function($res) {
