@@ -10,9 +10,11 @@ angular.module('app').config(function($routeProvider, $locationProvider) {
 });
 
 angular.module('app').controller('mainCtrl', function($scope, $http) {
+
    $http.get("http://127.0.0.1:3000/wrecks/locs").success(function($res) {
 	   $scope.positions = $res.rows;
    });
+
    $scope.$on('mapInitialized', function(event, map) {
       $scope.map = map;
    });
@@ -30,10 +32,6 @@ angular.module('app').controller('mainCtrl', function($scope, $http) {
        console.log(value + " " + released);
      }
 
-   };
-
-   $scope.filterWrecksByDepth = function() {
-     console.log("Triggered");
    };
 
    $scope.getWreck = function(event,wid) {
