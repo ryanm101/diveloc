@@ -26,7 +26,10 @@ angular.module('app').controller('mainCtrl', function($scope, $http) {
      step:5,
      dimension: ' m',
      threshold: 5,
-     realtime: true
+     callback: function(value, released) {
+       console.log(value + " " + released);
+     }
+
    };
 
    $scope.filterWrecksByDepth = function() {
