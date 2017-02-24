@@ -17,9 +17,15 @@ block main-content
                 a(href="/") Reefs
               li
                 a(href="/") Wrecks
-                
+            form(role="search").navbar-form.navbar-right
+              div.form-group
+                input(placeholder="Search", type="text").form-control
+              |  &nbsp;
+              button(type="submit").btn.btn-default Submit
+
+
   section.content
     div(ng-view)
-  
+
   footer.container.text-center
     p &copy Ryan McLean 2015
