@@ -1,8 +1,8 @@
 .metadata
 RemoteSystemsTempFiles
-divelocapi/node_modules
-divelocator/node_modules
-divelocator/public/vendor
+divelocapi/src/node_modules
+divelocator/src/node_modules
+divelocator/src/public/vendor
 *test*
 scraper/wreckupdater.py
 .project
