@@ -1,12 +1,14 @@
 version: '2'
 services:
   ui:
+    build: ./divelocator/
     image: "ryanm/divelocator"
     ports:
       - "3300:3300"
     links: 
       - api 
   api:
+    build: ./divelocapi/
     image: "ryanm/divelocapi"
     ports:
       - "3000:3000"
