@@ -15,3 +15,9 @@ nodejs
 bower
 angular
 couchdb
+docker
+docker-compose
+
+
+NOTES:
+for couchdb container SELinux causes issues with mount - switched to permissive for now.

@@ -1,4 +1,4 @@
-angular.module('app', ['ngResource', 'ngRoute', 'ngMap', 'angularAwesomeSlider']);
+angular.module('app', ['ngResource', 'ngRoute', 'ngMap']);
 
 angular.module('app').config(function($routeProvider, $locationProvider) {
     $locationProvider.html5Mode({

@@ -1,0 +1,18 @@
+{
+  "name": "divelocator",
+  "version": "0.0.0",
+  "authors": [
+    "Ryan McLean <pvtryan100@gmail.com>"
+  ],
+  "license": "MIT",
+  "private": true,
+  "dependencies": {
+    "jquery": "~2.1.4",
+    "toastr": "~2.1.2",
+    "angular": "~1.4.3",
+    "angular-resource": "~1.4.3",
+    "angular-route": "~1.4.3",
+    "ngmap": "~1.11.5",
+    "ng-slider":"~2.4.4"
+  }
+}

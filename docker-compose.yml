@@ -1,0 +1,20 @@
+version: '2'
+services:
+  ui:
+    image: "ryanm/divelocator"
+    ports:
+      - "3300:3300"
+    links: 
+      - api 
+  api:
+    image: "ryanm/divelocapi"
+    ports:
+      - "3000:3000"
+    links: 
+      - db
+  db:
+    image: "couchdb" 
+    ports:
+      - "5984:5984"
+    volumes:
+      - /var/lib/couchdb:/usr/local/var/lib/couchdb

@@ -1,5 +1,5 @@
 FROM node:alpine
-EXPOSE 3000
+EXPOSE 3300
 
 RUN mkdir -p /usr/src/app
 WORKDIR /usr/src/app
@@ -13,6 +13,6 @@ COPY src/bower.json /usr/src/app/
 RUN npm install
 RUN bower install --allow-root
 
-COPY src/* /usr/src/app/
+COPY src/ /usr/src/app/
 
 CMD ["npm", "start"]
